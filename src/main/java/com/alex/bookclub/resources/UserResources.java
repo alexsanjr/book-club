@@ -1,14 +1,13 @@
 package com.alex.bookclub.resources;
 
 import com.alex.bookclub.Dto.UserDto;
-import com.alex.bookclub.domain.User;
-import com.alex.bookclub.mapper.UserMapper;
 import com.alex.bookclub.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +21,13 @@ public class UserResources {
     @GetMapping
     public ResponseEntity<Page<UserDto>> findAll(Pageable pageable) {
         // PARAMETROS: page, size, sort
-        Page<UserDto> dto = service.findAll(pageable);
-        return ResponseEntity.ok(dto);
+        Page<UserDto> userDto = service.findAll(pageable);
+        return ResponseEntity.ok(userDto);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDto> findById(@PathVariable String id) {
+       UserDto userDto = service.findById(id);
+       return ResponseEntity.ok(userDto);
     }
 }
