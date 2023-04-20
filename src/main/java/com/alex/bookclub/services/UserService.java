@@ -1,6 +1,8 @@
 package com.alex.bookclub.services;
 
+import com.alex.bookclub.Dto.UserDto;
 import com.alex.bookclub.domain.User;
+import com.alex.bookclub.mapper.UserMapper;
 import com.alex.bookclub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +17,9 @@ public class UserService {
     @Autowired
     UserRepository repository;
 
-    public Page<User> findAll(Pageable pageable) {
+    public Page<UserDto> findAll(Pageable pageable) {
 
-        return repository.findAll(pageable);
+        Page<User> list = repository.findAll(pageable);
+        return list.map(UserMapper.INSTANCE::userToUserDto);
     }
 }

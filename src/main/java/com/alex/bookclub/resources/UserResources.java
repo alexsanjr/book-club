@@ -1,6 +1,8 @@
 package com.alex.bookclub.resources;
 
+import com.alex.bookclub.Dto.UserDto;
 import com.alex.bookclub.domain.User;
+import com.alex.bookclub.mapper.UserMapper;
 import com.alex.bookclub.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,9 +20,9 @@ public class UserResources {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<Page<User>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<UserDto>> findAll(Pageable pageable) {
         // PARAMETROS: page, size, sort
-        Page<User> list = service.findAll(pageable);
-        return ResponseEntity.ok(list);
+        Page<UserDto> dto = service.findAll(pageable);
+        return ResponseEntity.ok(dto);
     }
 }
